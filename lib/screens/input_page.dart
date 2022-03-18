@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/calculator_brain.dart';
 import 'package:bmi_calculator/screens/results_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -43,7 +44,7 @@ class _InputPageState extends State<InputPage> {
                         ? kActiveCardColor
                         : kInactiveCardColor,
                     carChild: IconContent(
-                        icon: FontAwesomeIcons.mars, label: 'Homme'),
+                        icon: FontAwesomeIcons.mars, label: 'Don man'),
                   ),
                 ),
                 Expanded(
@@ -57,7 +58,7 @@ class _InputPageState extends State<InputPage> {
                         ? kActiveCardColor
                         : kInactiveCardColor,
                     carChild: IconContent(
-                        icon: FontAwesomeIcons.venus, label: 'Femme'),
+                        icon: FontAwesomeIcons.venus, label: 'Dossier'),
                   ),
                 ),
               ],
@@ -204,8 +205,19 @@ class _InputPageState extends State<InputPage> {
           BottomButton(
             buttonTitle: "Calculer",
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ResultsPage()));
+              CalculatorBrain calc =
+                  CalculatorBrain(height: height, weight: weight);
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultsPage(
+                    bmiResult: calc.calculateBMI(),
+                    interpretation: calc.getInterpretation(),
+                    resultText: calc.getResult(),
+                  ),
+                ),
+              );
             },
           )
         ],
